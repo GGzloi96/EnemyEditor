@@ -2,12 +2,19 @@
 {
     public class CEnemyTemplate
     {
+        [JsonInclude]
         public string Name { get; private set; }
+        [JsonInclude]
         public string IconName { get; private set; }
+        [JsonInclude]
         public int BaseLife { get; private set; }
+        [JsonInclude]
         public double LifeModifier { get; private set; }
+        [JsonInclude]
         public int BaseGold { get; private set; }
+        [JsonInclude]
         public double GoldModifier { get; private set; }
+        [JsonInclude]
         public double SpawnChance { get; private set; }
 
         public CEnemyTemplate(string name, string iconName, int baseLife,

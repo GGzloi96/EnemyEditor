@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LibraryForLaba1
+﻿namespace LibraryForLaba1
 {
     internal class CEnemyTemplateList
     {
@@ -66,6 +62,36 @@ namespace LibraryForLaba1
                 return list;
             }
             else { return null; }
+        }
+
+        public void SaveToJson(string path)
+        {
+            string jsonString = JsonSerializer.Serialize(enemies);
+            File.WriteAllText(path, jsonString);
+
+        }
+
+        public void LoadFromJson(string path)
+        {
+            string jsonFromFile = File.ReadAllText(path);
+            List<CEnemyTemplate> getedEnemy = new List<CEnemyTemplate>();
+            JsonDocument doc = JsonDocument.Parse(jsonFromFile);
+
+            foreach (JsonElement element in doc.RootElement.EnumerateArray())
+            {
+                string name = element.GetProperty("Name").GetString();
+                string iconName = element.GetProperty("IconName").GetString();
+                int baseLife = element.GetProperty("BaseLife").GetInt32();
+                double lifeModifier = element.GetProperty("LifeModifier").GetDouble();
+                int baseGold = element.GetProperty("BaseGold").GetInt32();
+                double goldModifier = element.GetProperty("GoldModifier").GetDouble();
+                double spawnChance = element.GetProperty("SpawnChance").GetDouble();
+
+                CEnemyTemplate newEnemy = new CEnemyTemplate(name, iconName, baseLife, lifeModifier,
+                                                         baseGold, goldModifier, spawnChance);
+                enemies.Add(newEnemy);
+            }
+
         }
 
 
