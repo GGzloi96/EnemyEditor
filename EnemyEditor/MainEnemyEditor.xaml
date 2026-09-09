@@ -12,5 +12,19 @@
         Width="150" 
         Height="30" 
         Margin="10" Click="LoadIconsButton_Click"/>
+
+        <ListBox Name="IconsListBox" 
+         Width="150" 
+         Height="200" 
+         Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="IconsListBox_SelectionChanged">
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+
+        <TextBlock Name="MessageTextBlock" Height="100" Width="200" VerticalAlignment="Top" FontSize="18" TextAlignment="Center"/>
     </Grid>
 </Window>

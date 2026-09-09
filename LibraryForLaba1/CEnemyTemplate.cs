@@ -1,4 +1,6 @@
-﻿namespace LibraryForLaba1
+﻿using System.Text.Json.Serialization;
+
+namespace LibraryForLaba1
 {
     public class CEnemyTemplate
     {

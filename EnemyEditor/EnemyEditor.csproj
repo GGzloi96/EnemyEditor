@@ -7,13 +7,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="10.0.11" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\LibraryForLaba1\LibraryForLaba1.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\LibraryForLaba1\LibraryForLaba1.csproj" />
+	</ItemGroup>
 
 </Project>
