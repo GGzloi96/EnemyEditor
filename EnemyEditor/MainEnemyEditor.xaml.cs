@@ -128,5 +128,32 @@ namespace EnemyEditor
             
             
         }
+
+        private void SaveListButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new SaveFileDialog();
+            dialog.FileName = "Document"; // Default file name
+            dialog.DefaultExt = ".txt"; // Default file extension
+            dialog.Filter = "Text documents (.txt)|*.txt";
+            dialog.Title = "Выберите куда сохранять";
+
+            if (dialog.ShowDialog() == true)
+            {
+                string filename = dialog.FileName;
+                enemies.SaveToJson(filename);
+            }
+        }
+
+        private void LoadListButton_Click(object sender, RoutedEventArgs e)
+        {
+            enemies.enemies.Clear();
+            var dialog = new OpenFileDialog();
+            dialog.Title = "Выберите файл";
+
+            if (dialog.ShowDialog() == true)
+            {
+                enemies.LoadFromJson(dialog.FileName);
+            }
+        }
     }
 }

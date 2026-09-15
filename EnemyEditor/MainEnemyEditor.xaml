@@ -109,12 +109,12 @@
                     Content="Сохранить список" 
                     Width="150" 
                     Height="35" 
-                    Margin="0,0,20,0"
+                    Margin="0,0,20,0" Click="SaveListButton_Click"
                     />
             <Button x:Name="LoadListButton" 
                     Content="Загрузить список" 
                     Width="150" 
-                    Height="35"
+                    Height="35" Click="LoadListButton_Click"
                     />
         </StackPanel>
 
