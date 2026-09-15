@@ -1,6 +1,9 @@
-﻿using Microsoft.Win32;
+﻿using LibraryForLaba1;
+using Microsoft.Win32;
 using System.IO;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,9 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using LibraryForLaba1;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 
 namespace EnemyEditor
@@ -21,9 +21,12 @@ namespace EnemyEditor
     public partial class MainEnemyEditor : Window
     {
         private List<EnemyIcon> enemyIcons = new List<EnemyIcon>();
+        private CEnemyTemplateObservableCollection enemies = new CEnemyTemplateObservableCollection();
+
         public MainEnemyEditor()
         {
             InitializeComponent();
+            EnemyListBox.ItemsSource = enemies.enemies;
         }
 
         private void LoadIconsButton_Click(object sender, RoutedEventArgs e)
@@ -76,20 +79,54 @@ namespace EnemyEditor
         private void IconsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox iconHolder = sender as ListBox;
-            // проверка что выбранный элемент является изображением
-            // и что элемент не равен null
+
             if (iconHolder.SelectedItem is Image selectedImage && iconHolder.SelectedItem != null)
             {
-                // получение имени файла из источника изображения
-                // так как Source это Uri, то для получения имени файла
-                // нужно преобразовать его в строку и использовать Path.GetFileName.
-                // ListBox хранит в себе объекты типа Image
-                // selectedImage.Source.ToString() возвращает полный путь до изображения
+
                 string iconName = System.IO.Path.GetFileName(selectedImage.Source.ToString());
-                MessageTextBlock.Text = iconName;
-                // присвоение имени иконки в шаблон врага
-                //someEnemy.IconName = iconName;
+                EnemyIconImage.Source = selectedImage.Source;
+
             }
+        }
+
+        private void AddEnemyInOC(object sender, RoutedEventArgs e)
+        {
+            string Name = EnemyNameTextBox.Text;
+            int Baselife = int.Parse(EnemyBaseHealthTextBox.Text);
+            int BaseGold = int.Parse(EnemyBaseGoldTextBox.Text);
+            string IconName = System.IO.Path.GetFileName(EnemyIconImage.Source.ToString());
+            string IconPath = EnemyIconImage.Source.ToString();
+            EnemyIcon icon = new EnemyIcon(IconName,IconPath);
+
+            CEnemyTemplate newEnemy = new CEnemyTemplate(name:Name,
+                                                         enemyIcon:icon,
+                                                         baseLife:Baselife,
+                                                         lifeModifier:1,
+                                                         baseGold:BaseGold,
+                                                         goldModifier:1,
+                                                         spawnChance:1 
+                                                         );
+            enemies.AddEnemy(newEnemy);
+        }
+
+        private void DeleteEnemyFromOC(object sender, RoutedEventArgs e)
+        {
+            string name = EnemyNameTextBox.Text;
+            enemies.DeleteEnemyByName(name);
+        }
+
+        private void EnemyListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (EnemyListBox.SelectedItems.Count != 0)
+            {
+                CEnemyTemplate enemy = EnemyListBox.SelectedItem as CEnemyTemplate;
+                EnemyNameTextBox.Text = enemy.Name;
+                EnemyBaseHealthTextBox.Text = Convert.ToString(enemy.BaseLife);
+                EnemyBaseGoldTextBox.Text = Convert.ToString(enemy.BaseGold);
+                EnemyIconImage.Source = new BitmapImage(new Uri(enemy.Icon.ImagePath));
+            }
+            
+            
         }
     }
 }

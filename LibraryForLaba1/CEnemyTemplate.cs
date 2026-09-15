@@ -7,7 +7,7 @@ namespace LibraryForLaba1
         [JsonInclude]
         public string Name { get; private set; }
         [JsonInclude]
-        public string IconName { get; private set; }
+        public EnemyIcon Icon { get; private set; }
         [JsonInclude]
         public int BaseLife { get; private set; }
         [JsonInclude]
@@ -19,12 +19,12 @@ namespace LibraryForLaba1
         [JsonInclude]
         public double SpawnChance { get; private set; }
 
-        public CEnemyTemplate(string name, string iconName, int baseLife,
+        public CEnemyTemplate(string name, EnemyIcon enemyIcon , int baseLife,
                               double lifeModifier, int baseGold,double goldModifier, double spawnChance
                              )
         {
             Name = name;
-            IconName = iconName;
+            Icon = enemyIcon;
             BaseLife = baseLife;
             LifeModifier = lifeModifier;
             BaseGold = baseGold;

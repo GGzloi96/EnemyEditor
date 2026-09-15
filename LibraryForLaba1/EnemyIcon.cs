@@ -8,6 +8,14 @@ namespace LibraryForLaba1
     {
         public string Name { get; set; }
         public string ImagePath { get; set; }
+        
+        public EnemyIcon() { }
+
+        public EnemyIcon(string name, string imagePath)
+        {
+            Name = name;
+            ImagePath = imagePath;
+        }
 
         
     }

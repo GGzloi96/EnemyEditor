@@ -1,34 +1,31 @@
-﻿using System.Text.Json;
+﻿using System.Collections.ObjectModel;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace LibraryForLaba1
 {
-    internal class CEnemyTemplateList
+    public class CEnemyTemplateObservableCollection: ObservableCollection<CEnemyTemplate>
     {
-        List<CEnemyTemplate> enemies;
-        public CEnemyTemplateList()
+        public ObservableCollection<CEnemyTemplate> enemies { get; private set; }
+        public CEnemyTemplateObservableCollection()
         {
-            enemies = new List<CEnemyTemplate>();
+            enemies = new ObservableCollection<CEnemyTemplate>();
         }
         
-        public void AddEnemy(string name, string iconName, int baseLife,
-                             double lifeModifier, int baseGold,
-                             double goldModifier, double spawnChance)
+        public void AddEnemy(CEnemyTemplate enemy)
         {
-            CEnemyTemplate newEnemy = new CEnemyTemplate(name,iconName,baseLife,lifeModifier,
-                                                         baseGold,goldModifier,spawnChance);
-            enemies.Add(newEnemy);
+            enemies.Add(enemy);
         }
 
         public CEnemyTemplate GetEnemyByName(string name)
         {
             
-            foreach (CEnemyTemplate enemy in enemies)
+            foreach (CEnemyTemplate enemy in enemies.ToList())
             {
                 if (enemy.Name == name) return enemy;
             }
 
-            return null;
+            return null ;
             
         }
 
@@ -45,7 +42,7 @@ namespace LibraryForLaba1
         public void DeleteEnemyByName(string name)
         {
 
-            foreach (CEnemyTemplate enemy in enemies)
+            foreach (CEnemyTemplate enemy in enemies.ToList())
             {
                 if (enemy.Name == name) enemies.Remove(enemy);
             }
@@ -53,12 +50,12 @@ namespace LibraryForLaba1
 
         }
 
-        public List<string> GetListOfEnemyNames()
+        public ObservableCollection<string> GetListOfEnemyNames()
         {
             if ( enemies.Count != 0)
             {
-                List<string> list = new List<string>();
-                foreach(CEnemyTemplate enemy in enemies)
+                ObservableCollection<string> list = new ObservableCollection<string>();
+                foreach(CEnemyTemplate enemy in enemies.ToList())
                 {
                     list.Add(enemy.Name);
                 }
@@ -77,20 +74,23 @@ namespace LibraryForLaba1
         public void LoadFromJson(string path)
         {
             string jsonFromFile = File.ReadAllText(path);
-            List<CEnemyTemplate> getedEnemy = new List<CEnemyTemplate>();
+            ObservableCollection<CEnemyTemplate> getedEnemy = new ObservableCollection<CEnemyTemplate>();
             JsonDocument doc = JsonDocument.Parse(jsonFromFile);
 
             foreach (JsonElement element in doc.RootElement.EnumerateArray())
             {
                 string name = element.GetProperty("Name").GetString();
-                string iconName = element.GetProperty("IconName").GetString();
+
+                JsonElement JsonIcon = element.GetProperty("Icon");
+                EnemyIcon icon = JsonSerializer.Deserialize<EnemyIcon>(JsonIcon);
+
                 int baseLife = element.GetProperty("BaseLife").GetInt32();
                 double lifeModifier = element.GetProperty("LifeModifier").GetDouble();
                 int baseGold = element.GetProperty("BaseGold").GetInt32();
                 double goldModifier = element.GetProperty("GoldModifier").GetDouble();
                 double spawnChance = element.GetProperty("SpawnChance").GetDouble();
 
-                CEnemyTemplate newEnemy = new CEnemyTemplate(name, iconName, baseLife, lifeModifier,
+                CEnemyTemplate newEnemy = new CEnemyTemplate(name, icon, baseLife, lifeModifier,
                                                          baseGold, goldModifier, spawnChance);
                 enemies.Add(newEnemy);
             }

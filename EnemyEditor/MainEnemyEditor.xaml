@@ -5,18 +5,95 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EnemyEditor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="LoadIconsButton" 
-        Content="Загрузить иконки"  
-        Width="150" 
-        Height="30" 
-        Margin="10" Click="LoadIconsButton_Click"/>
+        Title="Редактор противников" Height="600" Width="800">
+    <Grid Margin="10">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Grid.Column="0" 
+                   Text="Список противников" 
+                   FontWeight="Bold" 
+                   Margin="0,0,0,5"/>
+        <ListBox x:Name="EnemyListBox" 
+                 Grid.Row="1" 
+                 Grid.Column="0"
+                 DisplayMemberPath="Name" SelectionChanged="EnemyListBox_SelectionChanged"
+                 />
+        
+        
+        
+        <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
+            <TextBlock Text="Имя противника:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <TextBox x:Name="EnemyNameTextBox" 
+                     Height="25" 
+                     Margin="0,0,0,10"/>
+
+            <TextBlock Text="Базовое здоровье:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <TextBox x:Name="EnemyBaseHealthTextBox" 
+                     Height="25" 
+                     Margin="0,0,0,10"/>
+
+            <TextBlock Text="Базовое золото:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <TextBox x:Name="EnemyBaseGoldTextBox" 
+                     Height="25" 
+                     Margin="0,0,0,10"/>
+
+            <TextBlock Text="Иконка противника:" FontWeight="Bold" Margin="0,0,0,5"/>
+
+            <Border BorderBrush="Gray" BorderThickness="1" Height="100" Margin="0,0,0,10">
+                <Image x:Name="EnemyIconImage" Stretch="Uniform"/>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="AddEnemyButton" 
+                        Content="Добавить" 
+                        Width="100" 
+                        Height="30" 
+                        Margin="0,0,10,0" Click="AddEnemyInOC"
+                        />
+                <Button x:Name="UpdateEnemyButton" 
+                        Content="Обновить" 
+                        Width="100" 
+                        Height="30" 
+                        Margin="0,0,10,0"
+                        />
+                <Button x:Name="DeleteEnemyButton" 
+                        Content="Удалить" 
+                        Width="100" 
+                        Height="30" Click="DeleteEnemyFromOC" 
+                        />
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="4" Orientation="Vertical">
+            <TextBlock Text="Иконки противников" 
+                       FontWeight="Bold" 
+                       Margin="0,0,0,5"/>
+            <Button x:Name="LoadIconsButton" 
+                    Content="Загрузить иконки"  
+                    Height="25"
+                    Margin="0,0,0,5" 
+                    Click="LoadIconsButton_Click"/>
+        </StackPanel>
 
         <ListBox Name="IconsListBox" 
-         Width="150" 
-         Height="200" 
-         Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="IconsListBox_SelectionChanged">
+                 Grid.Row="1" 
+                 Grid.Column="4"
+                 SelectionChanged="IconsListBox_SelectionChanged">
 
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -25,6 +102,21 @@
             </ListBox.ItemsPanel>
         </ListBox>
 
-        <TextBlock Name="MessageTextBlock" Height="100" Width="200" VerticalAlignment="Top" FontSize="18" TextAlignment="Center"/>
+        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center">
+            <Button x:Name="SaveListButton" 
+                    Content="Сохранить список" 
+                    Width="150" 
+                    Height="35" 
+                    Margin="0,0,20,0"
+                    />
+            <Button x:Name="LoadListButton" 
+                    Content="Загрузить список" 
+                    Width="150" 
+                    Height="35"
+                    />
+        </StackPanel>
+
     </Grid>
 </Window>
