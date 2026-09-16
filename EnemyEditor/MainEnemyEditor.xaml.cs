@@ -155,5 +155,6 @@ namespace EnemyEditor
                 enemies.LoadFromJson(dialog.FileName);
             }
         }
+
     }
 }

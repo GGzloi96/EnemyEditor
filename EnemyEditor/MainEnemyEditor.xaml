@@ -63,18 +63,15 @@
                         Content="Добавить" 
                         Width="100" 
                         Height="30" 
-                        Margin="0,0,10,0" Click="AddEnemyInOC"
+                        Margin="0,0,10,0" 
+                        Click="AddEnemyInOC"
                         />
-                <Button x:Name="UpdateEnemyButton" 
-                        Content="Обновить" 
-                        Width="100" 
-                        Height="30" 
-                        Margin="0,0,10,0"
-                        />
+                
                 <Button x:Name="DeleteEnemyButton" 
                         Content="Удалить" 
                         Width="100" 
-                        Height="30" Click="DeleteEnemyFromOC" 
+                        Height="30" 
+                        Click="DeleteEnemyFromOC" 
                         />
             </StackPanel>
         </StackPanel>
