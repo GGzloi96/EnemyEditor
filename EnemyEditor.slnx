@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="EnemyEditor/EnemyEditor.csproj" />
+  <Project Path="LibraryForLaba1/LibraryForLaba1.csproj" />
+</Solution>

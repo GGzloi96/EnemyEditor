@@ -1,0 +1,127 @@
+﻿<Window x:Class="EnemyEditor.MainEnemyEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EnemyEditor"
+        mc:Ignorable="d"
+        
+        Title="Редактор противников" Height="600" Width="800">
+    
+    <Window.Background>
+        <ImageBrush ImageSource="background.jpg" Stretch="UniformToFill" />
+    </Window.Background>
+    
+    <Grid Margin="10">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Grid.Column="0" 
+                   Text="Список противников" 
+                   Margin="0,0,0,5" FontWeight="Bold"/>
+        <ListBox x:Name="EnemyListBox" 
+                 Grid.Row="1" 
+                 Grid.Column="0"
+                 DisplayMemberPath="Name" SelectionChanged="EnemyListBox_SelectionChanged" Background="{x:Null}"
+                 />
+        
+        
+        
+        <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
+            <TextBlock Text="Имя противника:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <TextBox x:Name="EnemyNameTextBox" 
+                     Height="25" 
+                     Margin="0,0,0,10"/>
+
+            <TextBlock Text="Базовое здоровье:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <TextBox x:Name="EnemyBaseHealthTextBox" 
+                     Height="25" 
+                     Margin="0,0,0,10"/>
+
+            <TextBlock Text="Базовое золото:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <TextBox x:Name="EnemyBaseGoldTextBox" 
+                     Height="25" 
+                     Margin="0,0,0,10"/>
+
+            <TextBlock Text="Иконка противника:" FontWeight="Bold" Margin="0,0,0,5"/>
+
+            <Border BorderBrush="Gray" BorderThickness="1" Height="100" Margin="0,0,0,10">
+                <Image x:Name="EnemyIconImage" Stretch="Uniform"/>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="AddEnemyButton" 
+                        Content="Добавить" 
+                        Width="100" 
+                        Height="30" 
+                        Margin="0,0,10,0" 
+                        Click="AddEnemyInOC" Background="#FFFFABFA"
+                        />
+                
+                <Button x:Name="DeleteEnemyButton" 
+                        Content="Удалить" 
+                        Width="100" 
+                        Height="30" 
+                        Click="DeleteEnemyFromOC" Background="#FFFFABFA"
+                        />
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="4" Orientation="Vertical">
+            <TextBlock Text="Иконки противников" 
+                       FontWeight="Bold" 
+                       Margin="0,0,0,5"/>
+            <Button x:Name="LoadIconsButton" 
+                    Content="Загрузить иконки"  
+                    Height="25"
+                    Margin="0,0,0,5" 
+                    Click="LoadIconsButton_Click" Background="#FFFFABFA"/>
+        </StackPanel>
+
+        <ListBox Name="IconsListBox" 
+                 Grid.Row="1" 
+                 Grid.Column="4"
+                 SelectionChanged="IconsListBox_SelectionChanged" Background="{x:Null}">
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+
+        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Center">
+            <Button x:Name="SaveListButton" 
+                    Content="Сохранить список" 
+                    Width="150" 
+                    Height="35" 
+                    Margin="0,0,20,0" 
+                    Click="SaveListButton_Click"
+                    Background="#FFFFABFA"
+                    />
+            <Button x:Name="LoadListButton" 
+                    Content="Загрузить список" 
+                    Width="150" 
+                    Height="35" Click="LoadListButton_Click"
+                    Background="#FFFFABFA"
+                    />
+        </StackPanel>
+
+    </Grid>
+</Window>
