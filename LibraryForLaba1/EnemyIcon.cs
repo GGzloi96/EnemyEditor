@@ -16,7 +16,5 @@ namespace LibraryForLaba1
             Name = name;
             ImagePath = imagePath;
         }
-
-        
     }
 }

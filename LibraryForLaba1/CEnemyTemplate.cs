@@ -20,8 +20,7 @@ namespace LibraryForLaba1
         public double SpawnChance { get; private set; }
 
         public CEnemyTemplate(string name, EnemyIcon enemyIcon , int baseLife,
-                              double lifeModifier, int baseGold,double goldModifier, double spawnChance
-                             )
+                              double lifeModifier, int baseGold,double goldModifier, double spawnChance)
         {
             Name = name;
             Icon = enemyIcon;

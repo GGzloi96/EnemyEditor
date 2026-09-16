@@ -3,21 +3,13 @@ using Microsoft.Win32;
 using System.IO;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 
 namespace EnemyEditor
 {
-
     public partial class MainEnemyEditor : Window
     {
         private List<EnemyIcon> enemyIcons = new List<EnemyIcon>();
@@ -46,7 +38,6 @@ namespace EnemyEditor
             string filter = "*.png";
             string[] files = Directory.GetFiles(path, filter);
 
-
             foreach (string file in files)
             {
                 EnemyIcon icon = new EnemyIcon();
@@ -56,12 +47,12 @@ namespace EnemyEditor
 
                 enemyIcons.Add(icon);
             }
+
             DisplayIconsInListBox();
         }
 
         private void DisplayIconsInListBox()
         {
-
             foreach (EnemyIcon icon in enemyIcons)
             {
                 Image image = new Image();
@@ -82,27 +73,25 @@ namespace EnemyEditor
 
             if (iconHolder.SelectedItem is Image selectedImage && iconHolder.SelectedItem != null)
             {
-
                 string iconName = System.IO.Path.GetFileName(selectedImage.Source.ToString());
                 EnemyIconImage.Source = selectedImage.Source;
-
             }
         }
 
         private void AddEnemyInOC(object sender, RoutedEventArgs e)
         {
-            string Name = EnemyNameTextBox.Text;
-            int Baselife = int.Parse(EnemyBaseHealthTextBox.Text);
-            int BaseGold = int.Parse(EnemyBaseGoldTextBox.Text);
-            string IconName = System.IO.Path.GetFileName(EnemyIconImage.Source.ToString());
-            string IconPath = EnemyIconImage.Source.ToString();
-            EnemyIcon icon = new EnemyIcon(IconName,IconPath);
+            string name = EnemyNameTextBox.Text;
+            int baselife = int.Parse(EnemyBaseHealthTextBox.Text);
+            int baseGold = int.Parse(EnemyBaseGoldTextBox.Text);
+            string iconName = System.IO.Path.GetFileName(EnemyIconImage.Source.ToString());
+            string iconPath = EnemyIconImage.Source.ToString();
+            EnemyIcon icon = new EnemyIcon(iconName,iconPath);
 
-            CEnemyTemplate newEnemy = new CEnemyTemplate(name:Name,
+            CEnemyTemplate newEnemy = new CEnemyTemplate(name:name,
                                                          enemyIcon:icon,
-                                                         baseLife:Baselife,
+                                                         baseLife:baselife,
                                                          lifeModifier:1,
-                                                         baseGold:BaseGold,
+                                                         baseGold:baseGold,
                                                          goldModifier:1,
                                                          spawnChance:1 
                                                          );
@@ -124,9 +113,7 @@ namespace EnemyEditor
                 EnemyBaseHealthTextBox.Text = Convert.ToString(enemy.BaseLife);
                 EnemyBaseGoldTextBox.Text = Convert.ToString(enemy.BaseGold);
                 EnemyIconImage.Source = new BitmapImage(new Uri(enemy.Icon.ImagePath));
-            }
-            
-            
+            } 
         }
 
         private void SaveListButton_Click(object sender, RoutedEventArgs e)
@@ -155,6 +142,5 @@ namespace EnemyEditor
                 enemies.LoadFromJson(dialog.FileName);
             }
         }
-
     }
 }

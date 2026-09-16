@@ -25,7 +25,7 @@ namespace LibraryForLaba1
                 if (enemy.Name == name) return enemy;
             }
 
-            return null ;
+            return null;
             
         }
 
@@ -46,8 +46,6 @@ namespace LibraryForLaba1
             {
                 if (enemy.Name == name) enemies.Remove(enemy);
             }
-
-
         }
 
         public ObservableCollection<string> GetListOfEnemyNames()
@@ -68,7 +66,6 @@ namespace LibraryForLaba1
         {
             string jsonString = JsonSerializer.Serialize(enemies);
             File.WriteAllText(path, jsonString);
-
         }
 
         public void LoadFromJson(string path)
@@ -94,9 +91,6 @@ namespace LibraryForLaba1
                                                          baseGold, goldModifier, spawnChance);
                 enemies.Add(newEnemy);
             }
-
         }
-
-
     }
 }
