@@ -8,4 +8,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="background.jpg" />
+  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\LibraryForLaba1\LibraryForLaba1.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Include="background.jpg">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
 </Project>
