@@ -5,7 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EnemyEditor"
         mc:Ignorable="d"
+        
         Title="Редактор противников" Height="600" Width="800">
+    
+    <Window.Background>
+        <ImageBrush ImageSource="background.jpg" Stretch="UniformToFill" />
+    </Window.Background>
+    
     <Grid Margin="10">
         
         <Grid.ColumnDefinitions>
@@ -26,12 +32,11 @@
         
         <TextBlock Grid.Row="0" Grid.Column="0" 
                    Text="Список противников" 
-                   FontWeight="Bold" 
-                   Margin="0,0,0,5"/>
+                   Margin="0,0,0,5" FontWeight="Bold"/>
         <ListBox x:Name="EnemyListBox" 
                  Grid.Row="1" 
                  Grid.Column="0"
-                 DisplayMemberPath="Name" SelectionChanged="EnemyListBox_SelectionChanged"
+                 DisplayMemberPath="Name" SelectionChanged="EnemyListBox_SelectionChanged" Background="{x:Null}"
                  />
         
         
@@ -64,14 +69,14 @@
                         Width="100" 
                         Height="30" 
                         Margin="0,0,10,0" 
-                        Click="AddEnemyInOC"
+                        Click="AddEnemyInOC" Background="#FFFFABFA"
                         />
                 
                 <Button x:Name="DeleteEnemyButton" 
                         Content="Удалить" 
                         Width="100" 
                         Height="30" 
-                        Click="DeleteEnemyFromOC" 
+                        Click="DeleteEnemyFromOC" Background="#FFFFABFA"
                         />
             </StackPanel>
         </StackPanel>
@@ -84,13 +89,13 @@
                     Content="Загрузить иконки"  
                     Height="25"
                     Margin="0,0,0,5" 
-                    Click="LoadIconsButton_Click"/>
+                    Click="LoadIconsButton_Click" Background="#FFFFABFA"/>
         </StackPanel>
 
         <ListBox Name="IconsListBox" 
                  Grid.Row="1" 
                  Grid.Column="4"
-                 SelectionChanged="IconsListBox_SelectionChanged">
+                 SelectionChanged="IconsListBox_SelectionChanged" Background="{x:Null}">
 
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -106,12 +111,15 @@
                     Content="Сохранить список" 
                     Width="150" 
                     Height="35" 
-                    Margin="0,0,20,0" Click="SaveListButton_Click"
+                    Margin="0,0,20,0" 
+                    Click="SaveListButton_Click"
+                    Background="#FFFFABFA"
                     />
             <Button x:Name="LoadListButton" 
                     Content="Загрузить список" 
                     Width="150" 
                     Height="35" Click="LoadListButton_Click"
+                    Background="#FFFFABFA"
                     />
         </StackPanel>
 
