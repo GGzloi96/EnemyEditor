@@ -93,18 +93,21 @@ namespace EnemyEditor
         {
             string Name = EnemyNameTextBox.Text;
             int Baselife = int.Parse(EnemyBaseHealthTextBox.Text);
+            double Modifylife = double.Parse(EnemyModifyHealfTextBox.Text);
             int BaseGold = int.Parse(EnemyBaseGoldTextBox.Text);
+            double Modifygold= double.Parse(EnemyModifyGoldTextBox.Text);
             string IconName = System.IO.Path.GetFileName(EnemyIconImage.Source.ToString());
             string IconPath = EnemyIconImage.Source.ToString();
+            double SpawnChance = double.Parse(EnemySpawnChanceTextBox.Text);
             EnemyIcon icon = new EnemyIcon(IconName,IconPath);
 
             CEnemyTemplate newEnemy = new CEnemyTemplate(name:Name,
                                                          enemyIcon:icon,
                                                          baseLife:Baselife,
-                                                         lifeModifier:1,
+                                                         lifeModifier:Modifylife,
                                                          baseGold:BaseGold,
-                                                         goldModifier:1,
-                                                         spawnChance:1 
+                                                         goldModifier:Modifygold,
+                                                         spawnChance:SpawnChance
                                                          );
             enemies.AddEnemy(newEnemy);
         }
@@ -122,8 +125,12 @@ namespace EnemyEditor
                 CEnemyTemplate enemy = EnemyListBox.SelectedItem as CEnemyTemplate;
                 EnemyNameTextBox.Text = enemy.Name;
                 EnemyBaseHealthTextBox.Text = Convert.ToString(enemy.BaseLife);
+                EnemyModifyHealfTextBox.Text = Convert.ToString(enemy.LifeModifier);
                 EnemyBaseGoldTextBox.Text = Convert.ToString(enemy.BaseGold);
+                EnemyModifyGoldTextBox.Text = Convert.ToString(enemy.GoldModifier);
                 EnemyIconImage.Source = new BitmapImage(new Uri(enemy.Icon.ImagePath));
+                EnemySpawnChanceTextBox.Text = Convert.ToString(enemy.SpawnChance);
+
             }
             
             
@@ -132,9 +139,9 @@ namespace EnemyEditor
         private void SaveListButton_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new SaveFileDialog();
-            dialog.FileName = "Document"; // Default file name
-            dialog.DefaultExt = ".txt"; // Default file extension
-            dialog.Filter = "Text documents (.txt)|*.txt";
+            dialog.FileName = "ListEnemy"; // Default file name
+            dialog.DefaultExt = ".json"; // Default file extension
+            dialog.Filter = "JSON файлы (*.json)|*.json";
             dialog.Title = "Выберите куда сохранять";
 
             if (dialog.ShowDialog() == true)
@@ -156,5 +163,11 @@ namespace EnemyEditor
             }
         }
 
+        private void EditEnemyButton_Click(object sender, RoutedEventArgs e)
+        {
+            string name = ((CEnemyTemplate)EnemyListBox.SelectedItem).Name;
+            enemies.DeleteEnemyByName(name);
+            AddEnemyInOC(sender, e);
+        }
     }
 }

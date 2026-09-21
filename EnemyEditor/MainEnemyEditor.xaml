@@ -51,9 +51,24 @@
             <TextBox x:Name="EnemyBaseHealthTextBox" 
                      Height="25" 
                      Margin="0,0,0,10"/>
+            
+            <TextBlock Text="Модификатор здоровья:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <TextBox x:Name="EnemyModifyHealfTextBox" 
+                     Height="25" 
+                     Margin="0,0,0,10"/>
 
             <TextBlock Text="Базовое золото:" FontWeight="Bold" Margin="0,0,0,5"/>
             <TextBox x:Name="EnemyBaseGoldTextBox" 
+                     Height="25" 
+                     Margin="0,0,0,10"/>
+
+            <TextBlock Text="Модификатор золота:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <TextBox x:Name="EnemyModifyGoldTextBox" 
+                     Height="25" 
+                     Margin="0,0,0,10"/>
+
+            <TextBlock Text="Шанс появления:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <TextBox x:Name="EnemySpawnChanceTextBox" 
                      Height="25" 
                      Margin="0,0,0,10"/>
 
@@ -71,7 +86,14 @@
                         Margin="0,0,10,0" 
                         Click="AddEnemyInOC" Background="#FFFFABFA"
                         />
-                
+                <Button x:Name="EditEnemyButton" 
+                        Content="Редактировать" 
+                        Width="100" 
+                        Height="30" 
+                        Margin="0,0,10,0" 
+                        Background="#FFFFABFA" Click="EditEnemyButton_Click"
+                        />
+
                 <Button x:Name="DeleteEnemyButton" 
                         Content="Удалить" 
                         Width="100" 
