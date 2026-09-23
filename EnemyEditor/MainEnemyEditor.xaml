@@ -39,8 +39,6 @@
                  DisplayMemberPath="Name" SelectionChanged="EnemyListBox_SelectionChanged" Background="{x:Null}"
                  />
         
-        
-        
         <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
             <TextBlock Text="Имя противника:" FontWeight="Bold" Margin="0,0,0,5"/>
             <TextBox x:Name="EnemyNameTextBox" 

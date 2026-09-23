@@ -1,23 +1,14 @@
 ﻿using LibraryForLaba1;
 using Microsoft.Win32;
 using System.IO;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 
 namespace EnemyEditor
 {
-
     public partial class MainEnemyEditor : Window
     {
         private List<EnemyIcon> enemyIcons = new List<EnemyIcon>();
@@ -26,7 +17,7 @@ namespace EnemyEditor
         public MainEnemyEditor()
         {
             InitializeComponent();
-            EnemyListBox.ItemsSource = enemies.enemies;
+            EnemyListBox.ItemsSource = enemies.Enemies;
         }
 
         private void LoadIconsButton_Click(object sender, RoutedEventArgs e)
@@ -40,28 +31,26 @@ namespace EnemyEditor
                 LoadIconsFromFolder(selectedPath);
             }
         }
+
         private void LoadIconsFromFolder(string path)
         {
             enemyIcons.Clear();
-            string filter = "*.png";
-            string[] files = Directory.GetFiles(path, filter);
+            IconsListBox.Items.Clear(); //предыдущие иконки удаляются
 
-
-            foreach (string file in files)
+            foreach (string file in Directory.GetFiles(path, "*.png"))
             {
-                EnemyIcon icon = new EnemyIcon();
-
-                icon.Name = System.IO.Path.GetFileName(file);
-                icon.ImagePath = file;
-
-                enemyIcons.Add(icon);
+                enemyIcons.Add(new EnemyIcon
+                {
+                    Name = System.IO.Path.GetFileName(file),
+                    ImagePath = file
+                });
             }
+
             DisplayIconsInListBox();
         }
 
         private void DisplayIconsInListBox()
         {
-
             foreach (EnemyIcon icon in enemyIcons)
             {
                 Image image = new Image();
@@ -82,10 +71,8 @@ namespace EnemyEditor
 
             if (iconHolder.SelectedItem is Image selectedImage && iconHolder.SelectedItem != null)
             {
-
                 string iconName = System.IO.Path.GetFileName(selectedImage.Source.ToString());
                 EnemyIconImage.Source = selectedImage.Source;
-
             }
         }
 
@@ -153,7 +140,7 @@ namespace EnemyEditor
 
         private void LoadListButton_Click(object sender, RoutedEventArgs e)
         {
-            enemies.enemies.Clear();
+            enemies.Enemies.Clear();
             var dialog = new OpenFileDialog();
             dialog.Title = "Выберите файл";
 
