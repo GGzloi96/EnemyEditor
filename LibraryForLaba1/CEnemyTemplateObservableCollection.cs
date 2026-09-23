@@ -1,10 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Linq;
 
 namespace LibraryForLaba1
 {
-    public class CEnemyTemplateObservableCollection: ObservableCollection<CEnemyTemplate>
+    public class CEnemyTemplateObservableCollection
     {
         public ObservableCollection<CEnemyTemplate> Enemies { get; private set; }
         public CEnemyTemplateObservableCollection()
@@ -39,10 +40,8 @@ namespace LibraryForLaba1
 
         public void DeleteEnemyByName(string name)
         {
-            foreach (CEnemyTemplate enemy in Enemies.ToList())
-            {
-                if (enemy.Name == name) Enemies.Remove(enemy);
-            }
+            CEnemyTemplate? enemy = Enemies.FirstOrDefault(e => e.Name == name);
+            if (enemy != null) Enemies.Remove(enemy);
         }
 
         public ObservableCollection<string> GetListOfEnemyNames()
@@ -59,16 +58,15 @@ namespace LibraryForLaba1
             else { return null; }
         }
 
-        public void SaveToJson(string path)
+        public void SaveToJson(string path) // EXCEPTION: могу сохранить пустой список врагов
         {
             string jsonString = JsonSerializer.Serialize(Enemies);
             File.WriteAllText(path, jsonString);
         }
 
-        public void LoadFromJson(string path)
+        public void LoadFromJson(string path) //EXCEPTION: могу считать пустой список 
         {
             string jsonFromFile = File.ReadAllText(path);
-            ObservableCollection<CEnemyTemplate> getedEnemy = new ObservableCollection<CEnemyTemplate>();
             JsonDocument doc = JsonDocument.Parse(jsonFromFile);
 
             foreach (JsonElement element in doc.RootElement.EnumerateArray())

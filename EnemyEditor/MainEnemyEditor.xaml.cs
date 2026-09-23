@@ -71,32 +71,14 @@ namespace EnemyEditor
 
             if (iconHolder.SelectedItem is Image selectedImage && iconHolder.SelectedItem != null)
             {
-                string iconName = System.IO.Path.GetFileName(selectedImage.Source.ToString());
                 EnemyIconImage.Source = selectedImage.Source;
             }
         }
 
-        private void AddEnemyInOC(object sender, RoutedEventArgs e)
+        private void AddEnemyInOC(object sender, RoutedEventArgs e) //EXCEPTION: сделать поля непустыми 
         {
-            string Name = EnemyNameTextBox.Text;
-            int BaseLife = int.Parse(EnemyBaseHealthTextBox.Text);
-            double ModifyLife = double.Parse(EnemyModifyHealfTextBox.Text);
-            int BaseGold = int.Parse(EnemyBaseGoldTextBox.Text);
-            double ModifyGold = double.Parse(EnemyModifyGoldTextBox.Text);
-            string IconName = System.IO.Path.GetFileName(EnemyIconImage.Source.ToString());
-            string IconPath = EnemyIconImage.Source.ToString();
-            double SpawnChance = double.Parse(EnemySpawnChanceTextBox.Text);
-            EnemyIcon icon = new EnemyIcon(IconName,IconPath);
-
-            CEnemyTemplate newEnemy = new CEnemyTemplate(name:Name,
-                                                         enemyIcon:icon,
-                                                         baseLife:BaseLife,
-                                                         lifeModifier:ModifyLife,
-                                                         baseGold:BaseGold,
-                                                         goldModifier:ModifyGold,
-                                                         spawnChance:SpawnChance
-                                                         );
-            enemies.AddEnemy(newEnemy);
+            CEnemyTemplate newEnemy = CreateEnemyFromData();
+            if (newEnemy != null) enemies.AddEnemy(newEnemy);
         }
 
         private void DeleteEnemyFromOC(object sender, RoutedEventArgs e)
@@ -111,12 +93,12 @@ namespace EnemyEditor
             {
                 CEnemyTemplate enemy = EnemyListBox.SelectedItem as CEnemyTemplate;
                 EnemyNameTextBox.Text = enemy.Name;
-                EnemyBaseHealthTextBox.Text = Convert.ToString(enemy.BaseLife);
-                EnemyModifyHealfTextBox.Text = Convert.ToString(enemy.LifeModifier);
-                EnemyBaseGoldTextBox.Text = Convert.ToString(enemy.BaseGold);
-                EnemyModifyGoldTextBox.Text = Convert.ToString(enemy.GoldModifier);
+                EnemyBaseHealthTextBox.Text = enemy.BaseLife.ToString();
+                EnemyModifyHealfTextBox.Text = enemy.LifeModifier.ToString();
+                EnemyBaseGoldTextBox.Text = enemy.BaseGold.ToString();
+                EnemyModifyGoldTextBox.Text = enemy.BaseGold.ToString();
                 EnemyIconImage.Source = new BitmapImage(new Uri(enemy.Icon.ImagePath));
-                EnemySpawnChanceTextBox.Text = Convert.ToString(enemy.SpawnChance);
+                EnemySpawnChanceTextBox.Text = enemy.SpawnChance.ToString();
             }
         }
 
@@ -149,9 +131,48 @@ namespace EnemyEditor
 
         private void EditEnemyButton_Click(object sender, RoutedEventArgs e)
         {
-            string name = ((CEnemyTemplate)EnemyListBox.SelectedItem).Name;
-            enemies.DeleteEnemyByName(name);
-            AddEnemyInOC(sender, e);
+            if (EnemyListBox.SelectedItem is not CEnemyTemplate oldEnemy)
+            {
+                MessageBox.Show("Выберите врага");
+                return;
+            }
+
+            CEnemyTemplate updatedEnemy = CreateEnemyFromData();
+
+            if (updatedEnemy == null) { return; }
+
+            int index = enemies.Enemies.IndexOf((CEnemyTemplate)EnemyListBox.SelectedItem);
+            enemies.Enemies[index] = updatedEnemy;  
+
+            //string name = ((CEnemyTemplate)EnemyListBox.SelectedItem).Name;
+            //enemies.DeleteEnemyByName(name);
+            //AddEnemyInOC(sender, e);
+        }
+
+        private CEnemyTemplate? CreateEnemyFromData()
+        {
+            #region Exceptions
+            if (string.IsNullOrEmpty(EnemyNameTextBox.Text)) { MessageBox.Show("Имя пустое"); return null; }
+
+            if (!int.TryParse(EnemyBaseHealthTextBox.Text, out int baseHealth)) { MessageBox.Show("Базовое здоровье пустое"); return null; }
+
+            if (!double.TryParse(EnemyModifyHealfTextBox.Text, out double healthModif)) { MessageBox.Show("Модификатор здоровья пустой"); return null; }
+
+            if (!int.TryParse(EnemyBaseGoldTextBox.Text, out int baseGold)) { MessageBox.Show("Базовое золото пустое"); return null; }
+
+            if (!double.TryParse(EnemyModifyGoldTextBox.Text, out double goldModif)) { MessageBox.Show("Модификатор золота пустой"); return null; }
+
+            if (!double.TryParse(EnemySpawnChanceTextBox.Text, out double spawnChance)) { MessageBox.Show("Шанс спавна пустой"); return null; }
+
+            if (EnemyIconImage.Source == null) { MessageBox.Show("Выберите иконку"); return null; }
+            #endregion
+
+            string IconPath = EnemyIconImage.Source.ToString();
+            string IconName = Path.GetFileName(IconPath);
+            EnemyIcon enemyIcon = new EnemyIcon(IconName, IconPath);
+
+            return new CEnemyTemplate(EnemyNameTextBox.Text, enemyIcon, baseHealth, healthModif,
+                baseGold, goldModif, spawnChance);
         }
     }
 }
