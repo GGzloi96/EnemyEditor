@@ -79,10 +79,10 @@ namespace EnemyEditor
         private void AddEnemyInOC(object sender, RoutedEventArgs e)
         {
             string Name = EnemyNameTextBox.Text;
-            int Baselife = int.Parse(EnemyBaseHealthTextBox.Text);
-            double Modifylife = double.Parse(EnemyModifyHealfTextBox.Text);
+            int BaseLife = int.Parse(EnemyBaseHealthTextBox.Text);
+            double ModifyLife = double.Parse(EnemyModifyHealfTextBox.Text);
             int BaseGold = int.Parse(EnemyBaseGoldTextBox.Text);
-            double Modifygold= double.Parse(EnemyModifyGoldTextBox.Text);
+            double ModifyGold = double.Parse(EnemyModifyGoldTextBox.Text);
             string IconName = System.IO.Path.GetFileName(EnemyIconImage.Source.ToString());
             string IconPath = EnemyIconImage.Source.ToString();
             double SpawnChance = double.Parse(EnemySpawnChanceTextBox.Text);
@@ -90,10 +90,10 @@ namespace EnemyEditor
 
             CEnemyTemplate newEnemy = new CEnemyTemplate(name:Name,
                                                          enemyIcon:icon,
-                                                         baseLife:Baselife,
-                                                         lifeModifier:Modifylife,
+                                                         baseLife:BaseLife,
+                                                         lifeModifier:ModifyLife,
                                                          baseGold:BaseGold,
-                                                         goldModifier:Modifygold,
+                                                         goldModifier:ModifyGold,
                                                          spawnChance:SpawnChance
                                                          );
             enemies.AddEnemy(newEnemy);
@@ -117,10 +117,7 @@ namespace EnemyEditor
                 EnemyModifyGoldTextBox.Text = Convert.ToString(enemy.GoldModifier);
                 EnemyIconImage.Source = new BitmapImage(new Uri(enemy.Icon.ImagePath));
                 EnemySpawnChanceTextBox.Text = Convert.ToString(enemy.SpawnChance);
-
             }
-            
-            
         }
 
         private void SaveListButton_Click(object sender, RoutedEventArgs e)
