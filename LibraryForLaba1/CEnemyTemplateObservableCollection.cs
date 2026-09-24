@@ -58,13 +58,13 @@ namespace LibraryForLaba1
             else { return null; }
         }
 
-        public void SaveToJson(string path) // EXCEPTION: могу сохранить пустой список врагов
+        public void SaveToJson(string path)
         {
             string jsonString = JsonSerializer.Serialize(Enemies);
             File.WriteAllText(path, jsonString);
         }
 
-        public void LoadFromJson(string path) //EXCEPTION: могу считать пустой список 
+        public void LoadFromJson(string path)
         {
             string jsonFromFile = File.ReadAllText(path);
             JsonDocument doc = JsonDocument.Parse(jsonFromFile);

@@ -35,7 +35,7 @@ namespace EnemyEditor
         private void LoadIconsFromFolder(string path)
         {
             enemyIcons.Clear();
-            IconsListBox.Items.Clear(); //предыдущие иконки удаляются
+            IconsListBox.Items.Clear();
 
             foreach (string file in Directory.GetFiles(path, "*.png"))
             {
@@ -75,7 +75,7 @@ namespace EnemyEditor
             }
         }
 
-        private void AddEnemyInOC(object sender, RoutedEventArgs e) //EXCEPTION: сделать поля непустыми 
+        private void AddEnemyInOC(object sender, RoutedEventArgs e)  
         {
             CEnemyTemplate newEnemy = CreateEnemyFromData();
             if (newEnemy != null) enemies.AddEnemy(newEnemy);
@@ -143,10 +143,6 @@ namespace EnemyEditor
 
             int index = enemies.Enemies.IndexOf((CEnemyTemplate)EnemyListBox.SelectedItem);
             enemies.Enemies[index] = updatedEnemy;  
-
-            //string name = ((CEnemyTemplate)EnemyListBox.SelectedItem).Name;
-            //enemies.DeleteEnemyByName(name);
-            //AddEnemyInOC(sender, e);
         }
 
         private CEnemyTemplate? CreateEnemyFromData()

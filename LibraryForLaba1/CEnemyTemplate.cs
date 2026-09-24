@@ -9,15 +9,15 @@ namespace LibraryForLaba1
         [JsonInclude]
         public EnemyIcon Icon { get; private set; }
         [JsonInclude]
-        public int BaseLife { get; private set; }
+        public int BaseLife { get; private set; } //проверка на полодительное значение и переполнение числа
         [JsonInclude]
-        public double LifeModifier { get; private set; }
+        public double LifeModifier { get; private set; } //проверка на полодительное значение и переполнение числа
         [JsonInclude]
-        public int BaseGold { get; private set; }
+        public int BaseGold { get; private set; } //проверка на полодительное значение и переполнение числа
         [JsonInclude]
-        public double GoldModifier { get; private set; }
+        public double GoldModifier { get; private set; } //проверка на полодительное значение и переполнение числа
         [JsonInclude]
-        public double SpawnChance { get; private set; }
+        public double SpawnChance { get; private set; } //проверка на полодительное значение и переполнение числа
 
         public CEnemyTemplate(string name, EnemyIcon enemyIcon , int baseLife,
                               double lifeModifier, int baseGold,double goldModifier, double spawnChance
