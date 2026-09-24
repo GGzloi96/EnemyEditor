@@ -150,15 +150,15 @@ namespace EnemyEditor
             #region Exceptions
             if (string.IsNullOrEmpty(EnemyNameTextBox.Text)) { MessageBox.Show("Имя пустое"); return null; }
 
-            if (!int.TryParse(EnemyBaseHealthTextBox.Text, out int baseHealth)) { MessageBox.Show("Базовое здоровье пустое"); return null; }
+            if (!int.TryParse(EnemyBaseHealthTextBox.Text, out int baseHealth)) { MessageBox.Show("Базовое здоровье пустое или вне диапазона INT"); return null; }
 
-            if (!double.TryParse(EnemyModifyHealfTextBox.Text, out double healthModif)) { MessageBox.Show("Модификатор здоровья пустой"); return null; }
+            if (!double.TryParse(EnemyModifyHealfTextBox.Text, out double healthModif)) { MessageBox.Show("Модификатор здоровья пустой или вне диапазона DOUBLE"); return null; }
 
-            if (!int.TryParse(EnemyBaseGoldTextBox.Text, out int baseGold)) { MessageBox.Show("Базовое золото пустое"); return null; }
+            if (!int.TryParse(EnemyBaseGoldTextBox.Text, out int baseGold)) { MessageBox.Show("Базовое золото пустое или вне диапазона INT"); return null; }
 
-            if (!double.TryParse(EnemyModifyGoldTextBox.Text, out double goldModif)) { MessageBox.Show("Модификатор золота пустой"); return null; }
+            if (!double.TryParse(EnemyModifyGoldTextBox.Text, out double goldModif)) { MessageBox.Show("Модификатор золота пустой или вне диапазона DOUBLE"); return null; }
 
-            if (!double.TryParse(EnemySpawnChanceTextBox.Text, out double spawnChance)) { MessageBox.Show("Шанс спавна пустой"); return null; }
+            if (!double.TryParse(EnemySpawnChanceTextBox.Text, out double spawnChance)) { MessageBox.Show("Шанс спавна пустой или вне диапазона DOUBLE"); return null; }
 
             if (EnemyIconImage.Source == null) { MessageBox.Show("Выберите иконку"); return null; }
             #endregion
